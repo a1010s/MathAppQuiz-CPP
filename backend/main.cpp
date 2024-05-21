@@ -15,6 +15,12 @@ struct Question {
 std::vector<Question> loadQuestions(const std::string &questionsFile) {
     std::vector<Question> questions;
     std::ifstream file(questionsFile);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open file " << questionsFile << std::endl;
+        return questions;
+    } else {
+        std::cout << "Successfully opened file " << questionsFile << std::endl;
+    }
     std::string line;
     while (std::getline(file, line)) {
         std::istringstream iss(line);

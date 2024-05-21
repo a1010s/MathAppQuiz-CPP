@@ -1,5 +1,5 @@
 # Use a base image with g++ and required libraries
-FROM gcc:latest
+FROM gcc:12.3.0-bookworm
 
 # Set the working directory inside the container
 WORKDIR /app

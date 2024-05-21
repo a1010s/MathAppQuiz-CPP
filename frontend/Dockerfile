@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the frontend files into the container
 COPY frontend /app
 
+# Copy the files directory into the container
+COPY files /app/files
+
 # Expose port 8000 (assuming you are using port 8000 for the frontend)
 EXPOSE 8000
 

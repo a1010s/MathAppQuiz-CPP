@@ -74,9 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
       userAnswers.forEach((answer, index) => {
           const answerInput = document.getElementById(`answer${index}`);
           if (answer !== correctAnswers[index]) {
-              answerInput.style.backgroundColor = 'red';
+              answerInput.style.backgroundColor = 'palevioletred';
           } else {
-              answerInput.style.backgroundColor = 'green';
+              answerInput.style.backgroundColor = 'lightgreen';
           }
       });
   }

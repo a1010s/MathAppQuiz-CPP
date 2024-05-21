@@ -131,3 +131,10 @@ main {
   border: 1px solid #ccc;
   margin-left: 10px;
 }
+
+#audioPlayer {
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto;
+  display: block;
+}

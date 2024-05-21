@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <iostream> // Include for std::cerr and std::cout
 #include "json.hpp"
 
 using json = nlohmann::json;
@@ -35,6 +36,7 @@ std::vector<Question> loadQuestions(const std::string &questionsFile) {
 
 int main() {
     std::vector<Question> questions = loadQuestions("backend/questions.txt");
+    int totalScore = questions.size() * 10; // Calculate total score based on number of questions
 
     httplib::Server svr;
 
@@ -59,17 +61,18 @@ int main() {
         res.status = 200;  // Respond with HTTP OK status for preflight request
     });
 
-    svr.Post("/submit", [&questions](const auto& req, auto& res) {
+    svr.Post("/submit", [&questions, totalScore](const auto& req, auto& res) {
         auto body = json::parse(req.body);
         int score = 0;
         std::vector<int> correctAnswers;
         for (size_t i = 0; i < questions.size(); ++i) {
             correctAnswers.push_back(questions[i].answer);
             if (body[i] == questions[i].answer) {
-                score += 10;
+                score += 10; // Each correct answer is worth 10 points
             }
         }
-        json response = {{"score", score}, {"correctAnswers", correctAnswers}};
+        int percentage = (score * 100) / totalScore; // Calculate percentage
+        json response = {{"score", percentage}, {"correctAnswers", correctAnswers}};
         res.set_content(response.dump(), "application/json");
     });
 
